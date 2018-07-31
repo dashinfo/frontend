@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>DASH is Digital Cash</title>
+
+	<meta name="description" content="Place where You can get all information about DASH price." />
+	<meta name="keywords" content="dash, digital cash, bitcoin, blockchain, price information, masternodes, instantsend, privatesend, privacy, the dao, decentralization, mining" />
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@dashpay">
+	<meta name="twitter:title" content="DASH is Digital Cash">
+	<meta name="twitter:description" content="Place where You can get all information about DASH price.">
+	<meta name="twitter:image" content="https://dashinfo.net/apple-icon-120x120.png">
+
+	<meta property="og:title" content="DASH is Digital Cash" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://dashinfo.net/" />
+	<meta property="og:image" content="https://dashinfo.net/android-icon-192x192.png" />
+	<meta property="og:description" content="Place where You can get all information about DASH price." /> 
+	<meta property="og:site_name" content="DASH is Digital Cash" />
+
+	<link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="./apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="./apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="./apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="./apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="./apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="./android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+	<link rel="shortcut icon" href="./favicon.ico" />
+
+	<!-- Vue.js -->
+	<script src="./assets/js/vue.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./assets/css/theme.css" rel="stylesheet">
+
+	<style>
+		body, .font {
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 300;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
+		<div style="flex-direction: middle; max-width: 1020px; width: 100%; padding-top: 25px; padding-left: 10px; padding-right: 10px;">
+			<div class="center-block text-center main-img" style="width: 100%; margin-bottom: 15px;">
+				<picture>
+					<source srcset="./assets/images/dash-D-blue_s.png" media="(max-width: 450px)">
+					<img src="./assets/images/dash_digital-cash_logo.png" alt="DASH is Digital Cash" title="DASH is Digital Cash">
+				</picture>
+			</div>
+			<div v-if="this.success" class="center-block well well-nm" style="float: none; background: rgba(227, 227, 227, 0.35); max-width: 430px; width: 100%; border: none; ">
+				<div class="center-block col-xs-12">
+					<div class="row text-center" style="font-size: 4em;">
+					<p style="font-size: 0.5em;">1DASH</p>
+					<p style="font-weight: bold;" v-bind:title="this.response.price.usd + ' $'">@{this.response.price.eur} € <span v-bind:class="'triangle ' + (this.response.change > 0 ? 'green' : 'red')"></span><span style="font-size: 0.4em; font-weight: 300;">@{this.response.change}</span></p>
+					<p style="font-size: 0.3em;">@{this.response.price.btc} ฿</p>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div v-if="this.success" class="row no-margin" style="margin-bottom: 10px; background: rgba(227, 227, 227, 0.35);">
+				<!--<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="response.today.max.eur + ' €'">Today high: @{response.today.max.eur} €</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="response.today.min.eur + ' €'">Today low: @{response.today.min.eur} €</div>-->
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.marketcap.eur, '0,0.00') + ' €'">Market cap: @{formatNumber(this.response.marketcap.eur, '0.00a')} €</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.volume.eur, '0,0.00') + ' €'">Volume: @{formatNumber(this.response.volume.eur, '0.00a')} €</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="this.response.all_time_high.eur + ' €'">All time high: @{this.response.all_time_high.eur} €</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.supply.dash, '0,0') + ' dash'">Supply: @{formatNumber(this.response.supply.dash, '0a')} dash</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.budget.amount.dash, '0,0.00000000') + ' dash'">Budget amount: @{formatNumber(this.response.budget.amount.dash, '0.0a')} dash</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.budget.alloted_amount.dash, '0,0.00000000') + ' dash'">Alloted amount: @{formatNumber(this.response.budget.alloted_amount.dash, '0.0a')} dash</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding">Payment date: @{this.response.budget.datetime.substr(0, 10)}</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding">Masternodes count: @{formatNumber(this.response.masternodes.count, '0,0')}</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.masternodes.daily_payment.dash, '0,0.00000000') + ' dash'">Daily payment: @{formatNumber(this.response.masternodes.daily_payment.dash, '0.0a')} dash</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.blockchain.hashrate, '0.00Ph') + ' Ph/s'">Network hashrate: @{formatNumber(this.response.blockchain.hashrate, '0.00Ph')}</div>
+				<div class="col-xs-12 col-sm-3 col-lg-3 text-center no-padding" v-bind:title="formatNumber(this.response.blockchain.last_block, '0,0')">Last block: @{formatNumber(this.response.blockchain.last_block, '0,0')}</div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			delimiters: ['@{', '}'],
+			data: {
+				success: false,
+				response: {}
+			},
+			methods: {
+				getData() {
+					return new Promise((resolve, reject) => {
+						fetch(new Request('https://api.dashinfo.net/v1.0/all'))
+							.then(r => r.json())
+							.then(r => resolve(r))
+							.catch(_ => reject(false));
+					});
+				},
+				async parseData() {
+					try {
+						const result = await this.getData();
+
+						if(!result.success) {
+							this.success = false;
+							document.querySelector('.main-img').classList.add('c404');
+							return null;
+						}
+
+						this.response = result.data;
+						this.success = true;
+						document.title = '(' + this.response.price.eur + ' €) DASH is Digital Cash';
+
+						return true;
+					} catch(e) {
+						this.success = false;
+						document.querySelector('.main-img').classList.add('c404');
+						return null;
+					}
+				},
+				formatNumber(a, b = '0,0') {
+					return numeral(a).format(b);
+				}
+			},
+			created: function () {
+				this.parseData();
+
+				if(this.success) {
+					setInterval(async function () {
+						document.title = 'Updating...';
+						const result = await app.getData();
+						if(result.success) {
+							app.response = result.data;
+						}
+						document.title = '(' + app.response.price.eur + ' €) DASH is Digital Cash';
+					}, 1000 * 60 * 5); 
+				}
+			},
+		});
+	</script>
+
+	<script src="./assets/js/jquery.min.js"></script>
+	<script src="./assets/js/bootstrap.min.js"></script>
+	<script src="./assets/js/numeral.min.js"></script>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
+</body>
+</html>
+<!--
+                                             .,:;;;;::.`                                            
+                                       .;;;;;;;;;;;;;;;;;;;;:`                                      
+                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;:                                   
+                                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,                                
+                              .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                              
+                            ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`                           
+                          .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                          
+                         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                        
+                       :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`                      
+                      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                     
+                    ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                    
+                   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.                  
+                  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:                 
+                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                
+                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;               
+               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              
+              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;             
+             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:            
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`           
+           ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;           
+           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;          
+          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;         
+         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`        
+         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;        
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:       
+       ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;      
+      :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;      
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;     
+     ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;     
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
+    `;;;;;;;;;;;;;;;;;;;;;;;;;;                                                .;;;;;;;;;;;;;;;;    
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;                                                  :;;;;;;;;;;;;;;.   
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;                                                   ;;;;;;;;;;;;;;;   
+   ,;;;;;;;;;;;;;;;;;;;;;;;;;;`                                                    ;;;;;;;;;;;;;;   
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;                                                     ;;;;;;;;;;;;;;.  
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;                                                     `;;;;;;;;;;;;;;  
+  `;;;;;;;;;;;;;;;;;;;;;;;;;;`                                                      ;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;                                                       ;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;                                                       ;;;;;;;;;;;;;;, 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;.                                                      ,;;;;;;;;;;;;;;; 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;; 
+ .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:              ;;;;;;;;;;;;;;;; 
+ :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              .;;;;;;;;;;;;;;;; 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;`
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;.
+ ;;;;;;;;;;;;;;;;;;;                        :;;;;;;;;;;;;;;;;;;;;;;              .;;;;;;;;;;;;;;;;;:
+ ;;;;;;;;;;;;;;;;;;;                        ;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;.                        ;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;                        :;;;;;;;;;;;;;;;;;;;;;;`             `;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;                        ;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;.                        ;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;                        ;;;;;;;;;;;;;;;;;;;;;;;`             `;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;                        ;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;:
+ ;;;;;;;;;;;;;;;;`                        ;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;,
+ ;;;;;;;;;;;;;;;;,,,,,,,,,,,,,,,,,,,,,,,,;;;;;;;;;;;;;;;;;;;;;;;`              ;;;;;;;;;;;;;;;;;;;;.
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;; 
+ ,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;; 
+ `;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.              ;;;;;;;;;;;;;;;;;;;;; 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              :;;;;;;;;;;;;;;;;;;;;; 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;              ;;;;;;;;;;;;;;;;;;;;;; 
+  ;;;;;;;;;;;;;;;;;;;;                                                       ;;;;;;;;;;;;;;;;;;;;;. 
+  :;;;;;;;;;;;;;;;;;;                                                       ;;;;;;;;;;;;;;;;;;;;;;  
+   ;;;;;;;;;;;;;;;;;;                                                      `;;;;;;;;;;;;;;;;;;;;;;  
+   ;;;;;;;;;;;;;;;;;;                                                      ;;;;;;;;;;;;;;;;;;;;;;;  
+   ;;;;;;;;;;;;;;;;;                                                      ;;;;;;;;;;;;;;;;;;;;;;;`  
+   `;;;;;;;;;;;;;;;;                                                     ;;;;;;;;;;;;;;;;;;;;;;;;   
+    ;;;;;;;;;;;;;;;;                                                    ;;;;;;;;;;;;;;;;;;;;;;;;;   
+    ;;;;;;;;;;;;;;;`                                                  .;;;;;;;;;;;;;;;;;;;;;;;;;    
+     ;;;;;;;;;;;;;;                                                 `;;;;;;;;;;;;;;;;;;;;;;;;;;;    
+     ;;;;;;;;;;;;;;                                              `:;;;;;;;;;;;;;;;;;;;;;;;;;;;;,    
+     `;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;     
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:     
+      `;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;      
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:      
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`       
+         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;        
+         .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;         
+          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.         
+           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;          
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;           
+            .;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;            
+             :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;             
+              ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`             
+               ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.              
+                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.               
+                 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`                
+                  :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                  
+                   `;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   
+                     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                    
+                      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`                     
+                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                       
+                         :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                         
+                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.                          
+                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.                            
+                               :;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`                              
+                                  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:                                 
+                                     :;;;;;;;;;;;;;;;;;;;;;;;;;,                                    
+                                         ,;;;;;;;;;;;;;;;;;.                                        
+Dash is Digital Cash
+
+Hey, hey, hey!!! We have public api for your needs.
+
+https://api.dashinfo.net/v1.0/all
+https://api.dashinfo.net/v1.0/price
+https://api.dashinfo.net/v1.0/price/{eur|usd|btc}
+https://api.dashinfo.net/v1.0/budget
+https://api.dashinfo.net/v1.0/masternodes
+https://api.dashinfo.net/v1.0/blockchain
+
+Our informations update every ~5 minutes.
+Sources: coinmarketcap.com, dash-news.de, dashcentral.org, cryptoid.info
+
+News:
+31.07.2018 -- Design update. Add github link.
+21.04.2018 -- Add cell last block. Deleted explorer.dash.org from sources. Now using cryptoid.info for all blockchain information.
+05.01.2018 -- API works.
+05.01.2018 -- We are back. Problems with domain resolved. API back in few days.
+05.03.2017 -- Our initial release.
+
+Donate to address: Xug11wioM4ApkkBxTZnfUeAKcXadbk2brQ
+
+Contact me: support@dashinfo.net
+
+Source code: https://github.com/dashinfo
+-->

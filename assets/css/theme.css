@@ -1,0 +1,38 @@
+body {
+	background: linear-gradient(to right, #012060 0%, #008de4 100%);
+}
+.triangle {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	display: inline-block;
+	margin-top: 13px;
+	margin-left: 10px;
+	margin-right: 3px;
+}
+.triangle.green {
+	border-bottom: 24px solid rgb(32, 163, 85);
+}
+.triangle.red {
+	border-top: 24px solid rgb(239, 70, 99);
+}
+.no-padding {
+	padding-left: 0;
+	padding-right: 0;
+}
+.no-margin {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.c404 {
+	animation: bang 3s linear;
+	animation-fill-mode: forwards;
+}
+
+@keyframes bang {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(16deg); }
+  40% { transform: rotate(7deg); }
+  60% { transform: rotate(12deg); }
+  100% { transform: rotate(7deg); }
+}
